@@ -9,7 +9,7 @@ use tokio::{
 };
 
 use crate::config::MqttConfig;
-use crate::tuya::TuyaConfig;
+use crate::twinkly::TwinklyConfig;
 
 #[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 pub struct MqttDevice {
@@ -29,7 +29,10 @@ pub struct MqttClient {
     pub rx_map: HashMap<String, Arc<RwLock<Receiver<Option<MqttDevice>>>>>,
 }
 
-pub async fn init_mqtt(mqtt_config: &MqttConfig, tuya_config: &TuyaConfig) -> Result<MqttClient> {
+pub async fn init_mqtt(
+    mqtt_config: &MqttConfig,
+    twinkly_config: &TwinklyConfig,
+) -> Result<MqttClient> {
     let mut options = MqttOptions::new(
         mqtt_config.id.clone(),
         mqtt_config.host.clone(),
@@ -38,13 +41,13 @@ pub async fn init_mqtt(mqtt_config: &MqttConfig, tuya_config: &TuyaConfig) -> Re
     options.set_keep_alive(Duration::from_secs(5));
     let (client, mut eventloop) = AsyncClient::new(options, 10);
     client
-        .subscribe("home/lights/tuya/+/set", QoS::AtMostOnce)
+        .subscribe("home/lights/twinkly/+/set", QoS::AtMostOnce)
         .await?;
 
     let mut tx_map = HashMap::new();
     let mut rx_map = HashMap::new();
 
-    for device in tuya_config.devices.values() {
+    for device in twinkly_config.devices.values() {
         let (tx, rx) = tokio::sync::watch::channel(None);
         let tx = Arc::new(RwLock::new(tx));
         let rx = Arc::new(RwLock::new(rx));

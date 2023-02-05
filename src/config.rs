@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use serde::Deserialize;
 use std::collections::HashMap;
 
-use crate::tuya::{TuyaConfig, TuyaDeviceConfig};
+use crate::twinkly::{TwinklyConfig, TwinklyDeviceConfig};
 
 pub type DeviceId = String;
 
@@ -15,10 +15,7 @@ pub struct MqttConfig {
 
 #[derive(Deserialize, Debug)]
 pub struct DeviceConfig {
-    pub name: String,
-    pub local_key: String,
     pub ip: String,
-    pub version: String,
 }
 
 #[derive(Deserialize, Debug)]
@@ -27,7 +24,7 @@ pub struct Config {
     pub devices: HashMap<DeviceId, DeviceConfig>,
 }
 
-pub fn read_config_devices() -> Result<(MqttConfig, TuyaConfig)> {
+pub fn read_config_devices() -> Result<(MqttConfig, TwinklyConfig)> {
     let mut settings = config::Config::default();
 
     let root = std::env::current_dir().unwrap();
@@ -55,19 +52,17 @@ pub fn read_config_devices() -> Result<(MqttConfig, TuyaConfig)> {
         .map(|(device_id, device)| {
             (
                 device_id.clone(),
-                TuyaDeviceConfig {
-                    name: device.name,
+                TwinklyDeviceConfig {
+                    name: device_id.clone(),
                     id: device_id,
-                    local_key: device.local_key,
                     ip: device.ip,
-                    version: device.version,
                 },
             )
         })
         .collect();
 
     let mqtt_config = config.mqtt;
-    let tuya_config = TuyaConfig { devices };
+    let twinkly_config = TwinklyConfig { devices };
 
-    Ok((mqtt_config, tuya_config))
+    Ok((mqtt_config, twinkly_config))
 }

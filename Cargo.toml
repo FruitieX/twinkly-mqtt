@@ -1,5 +1,5 @@
 [package]
-name = "tuya-mqtt"
+name = "twinkly-mqtt"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,6 @@ edition = "2021"
 
 [dependencies]
 env_logger = "0.9.1"
-rust-async-tuyapi = { git = "https://github.com/FruitieX/rust-async-tuyapi" }
 tokio = { version = "1", features = [
 	"rt",
 	"rt-multi-thread",
@@ -26,3 +25,9 @@ log = "0.4.17"
 futures = "0.3.25"
 serde_path_to_error = "0.1"
 config = "0.10.1"
+byteorder = "1.4.3"
+reqwest = { version = "0.11", default-features = false, features = [
+	"json",
+	"rustls-tls",
+] }
+base64 = "0.13.0"

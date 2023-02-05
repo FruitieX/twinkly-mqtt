@@ -1,8 +1,8 @@
-# tuya-mqtt
+# twinkly-mqtt
 
-This program periodically polls configured Tuya devices in your local network, and publishes current state on an MQTT topic: `/home/tuya/<device_id>`.
+This program periodically polls configured Twinkly devices in your local network, and publishes current state on an MQTT topic: `/home/twinkly/<device_id>`.
 
-It also subscribes to an MQTT topic `/home/tuya/<device_id>/set` and sets device state according to incoming messages.
+It also subscribes to an MQTT topic `/home/twinkly/<device_id>/set` and sets device state according to incoming messages.
 
 ## Running
 
@@ -17,21 +17,10 @@ Make sure you have a recent version of Rust installed.
 
 For each device, you will need to retrieve and note down:
 
-- Device ID
 - Device local IP address
-- Device name (does not have to match with Tuya app)
-- Device local key
-- Tuya LAN protocol version number (this involves trial and error for now, try 3.4 or 3.3)
+- Device name (does not have to match with Twinkly app)
 
-You can find each device's device_id and IP address in the Tuya Smart app under device settings -> "Device Information".
-
-Retrieve the local_key of your devices via https://iot.tuya.com:
-
-- Create an account
-- Create a "Cloud Project" (Industry: Smart Home)
-- Link your Tuya Smart app under the project's Devices tab
-- You should now see your devices listed under Devices
-- For each device, go to API Explorer and call the Get Device Information API with your device_id to retreive the device's local_key.
+You can find each device's IP in the Twinkly app.
 
 ## MQTT protocol
 
@@ -40,16 +29,9 @@ MQTT messages use the following JSON format:
 ```
 {
   "id": "<device_id>",
-  "name": "Living room downlight 2",
+  "name": "Staircase",
   "power": true,
   "brightness": 0.5,
-  "cct": 6500,
-  "color": {
-    "hue": 38,
-    "saturation": 0.75,
-    "value": 1
-  },
-  "transition_ms": 500,
 }
 ```
 
