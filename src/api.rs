@@ -1,4 +1,5 @@
 use anyhow::{anyhow, Result};
+use base64::Engine;
 use serde::Deserialize;
 use std::{
     collections::HashMap,
@@ -26,7 +27,8 @@ pub struct Token {
 
 impl Token {
     pub fn new(token: String) -> Result<Token> {
-        let binary = base64::decode(token.clone())?;
+        let binary = base64::engine::general_purpose::STANDARD_NO_PAD.decode(token.clone())?;
+
         let token = Token {
             string: token,
             binary,
