@@ -27,7 +27,7 @@ pub struct Token {
 
 impl Token {
     pub fn new(token: String) -> Result<Token> {
-        let binary = base64::engine::general_purpose::STANDARD_NO_PAD.decode(token.clone())?;
+        let binary = base64::engine::general_purpose::STANDARD.decode(token.clone())?;
 
         let token = Token {
             string: token,
