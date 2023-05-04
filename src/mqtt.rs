@@ -1,5 +1,6 @@
 use anyhow::{Context, Result};
 use palette::Hsv;
+use rand::{distributions::Alphanumeric, Rng};
 use rumqttc::{AsyncClient, MqttOptions, QoS};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, sync::Arc, time::Duration};
@@ -33,8 +34,14 @@ pub async fn init_mqtt(
     mqtt_config: &MqttConfig,
     twinkly_config: &TwinklyConfig,
 ) -> Result<MqttClient> {
+    let random_string: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(8)
+        .map(char::from)
+        .collect();
+
     let mut options = MqttOptions::new(
-        mqtt_config.id.clone(),
+        format!("{}-{}", mqtt_config.id.clone(), random_string),
         mqtt_config.host.clone(),
         mqtt_config.port,
     );
