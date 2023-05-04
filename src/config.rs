@@ -41,7 +41,7 @@ pub fn read_config_devices() -> Result<(MqttConfig, TwinklyConfig)> {
     let builder = builder.add_source(config::File::with_name("Settings"));
     let settings = builder.build()?;
 
-    let config: Config = settings.clone().try_deserialize().context(
+    let config: Config = settings.try_deserialize().context(
         "Failed to deserialize config, compare your config file to Settings.toml.example!",
     )?;
 
