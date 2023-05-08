@@ -27,11 +27,9 @@ pub async fn init_twinkly(
     device_config: TwinklyDeviceConfig,
     mqtt_client: MqttClient,
 ) -> Result<()> {
-    let twinkly = Arc::new(RwLock::new(TwinklyApi::new(device_config.ip.clone())));
-
     task::spawn(async move {
         loop {
-            let twinkly = twinkly.clone();
+            let twinkly = Arc::new(RwLock::new(TwinklyApi::new(device_config.ip.clone())));
             let mqtt_client = mqtt_client.clone();
 
             // Loop until there's an error of any kind
