@@ -1,5 +1,4 @@
 use anyhow::{Context, Result};
-use palette::Hsv;
 use rand::{distributions::Alphanumeric, Rng};
 use rumqttc::{AsyncClient, MqttOptions, QoS};
 use serde::{Deserialize, Serialize};
@@ -18,8 +17,6 @@ pub struct MqttDevice {
     pub name: String,
     pub power: Option<bool>,
     pub brightness: Option<f32>,
-    pub cct: Option<f32>,
-    pub color: Option<Hsv>,
     pub transition_ms: Option<f32>,
     pub sensor_value: Option<String>,
 }

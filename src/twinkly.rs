@@ -51,8 +51,6 @@ pub async fn init_twinkly(
                             name: device_config.id.clone(),
                             power: Some(power),
                             brightness: None,
-                            cct: None,
-                            color: None,
                             transition_ms: None,
                             sensor_value: None,
                         };
