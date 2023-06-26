@@ -60,11 +60,12 @@ pub async fn init_mqtt(
     }
 
     task::spawn(async move {
-        while let Ok(notification) = eventloop.poll().await {
+        loop {
+            let notification = eventloop.poll().await;
             let mqtt_tx = tx_map.clone();
 
             let res = (|| async move {
-                if let rumqttc::Event::Incoming(rumqttc::Packet::Publish(msg)) = notification {
+                if let rumqttc::Event::Incoming(rumqttc::Packet::Publish(msg)) = notification? {
                     let device: MqttDevice = serde_json::from_slice(&msg.payload)?;
 
                     let device_id = &device.id;
@@ -76,12 +77,13 @@ pub async fn init_mqtt(
                     tx.send(Some(device))?;
                 }
 
-                Ok::<(), Box<dyn std::error::Error>>(())
+                Ok::<(), Box<dyn std::error::Error + Send + Sync>>(())
             })()
             .await;
 
             if let Err(e) = res {
                 eprintln!("MQTT error: {:?}", e);
+                tokio::time::sleep(Duration::from_secs(1)).await;
             }
         }
     });
