@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/FruitieX/twinkly-mqtt/compare/v0.4.0...v0.4.1) (2023-06-26)
+
+
+### Bug Fixes
+
+* attempt reconnecting to mqtt after failure ([cf8227f](https://github.com/FruitieX/twinkly-mqtt/commit/cf8227fed3c743bfbfed8bc74ea0504aef43797d))
+
 ## [0.4.0](https://github.com/FruitieX/twinkly-mqtt/compare/v0.2.0...v0.4.0) (2023-06-16)
 
 
