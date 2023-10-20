@@ -1,5 +1,42 @@
 # Changelog
 
+## [0.5.0](https://github.com/FruitieX/twinkly-mqtt/compare/v0.4.1...v0.5.0) (2023-10-20)
+
+
+### Features
+
+* restrict polling rate if phone app is being used ([26d18de](https://github.com/FruitieX/twinkly-mqtt/commit/26d18dea8030581f84d1ebfc22652d208b6041e2))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([6a90073](https://github.com/FruitieX/twinkly-mqtt/commit/6a90073f6372c2cd02a6c648e8f532487391145d))
+* **deps:** update rust crate anyhow to 1.0.72 ([bf06d74](https://github.com/FruitieX/twinkly-mqtt/commit/bf06d74a990c906e197dfb7759b79e82540c6147))
+* **deps:** update rust crate anyhow to 1.0.73 ([302f72d](https://github.com/FruitieX/twinkly-mqtt/commit/302f72d910941c9cb3ea2d31ee99e0993188b50c))
+* **deps:** update rust crate anyhow to 1.0.74 ([01c2683](https://github.com/FruitieX/twinkly-mqtt/commit/01c268375052d0be8876bc283a8c13166009cbdd))
+* **deps:** update rust crate anyhow to 1.0.75 ([8abba63](https://github.com/FruitieX/twinkly-mqtt/commit/8abba634c28572ca3a147ac9b5fedef0ece6f10c))
+* **deps:** update rust crate log to 0.4.20 ([7611873](https://github.com/FruitieX/twinkly-mqtt/commit/7611873c796804a1f393c1cf9213245797889582))
+* **deps:** update rust crate palette to 0.7.3 ([29621e6](https://github.com/FruitieX/twinkly-mqtt/commit/29621e6f38f05236b50fc4829f235701d6e91001))
+* **deps:** update rust crate serde to 1.0.165 ([f7dddd8](https://github.com/FruitieX/twinkly-mqtt/commit/f7dddd8e7ba32886c6cbf682a9d21edc2b9267be))
+* **deps:** update rust crate serde to 1.0.166 ([61e3df0](https://github.com/FruitieX/twinkly-mqtt/commit/61e3df034906438a56c3f309c69b007a611ddc3d))
+* **deps:** update rust crate serde to 1.0.167 ([37e8624](https://github.com/FruitieX/twinkly-mqtt/commit/37e8624385022db5c99e8a24cc7200398a22654b))
+* **deps:** update rust crate serde to 1.0.168 ([d9ecb56](https://github.com/FruitieX/twinkly-mqtt/commit/d9ecb5628d0fb6385deb818c1ef819a03d6f1071))
+* **deps:** update rust crate serde to 1.0.170 ([697917c](https://github.com/FruitieX/twinkly-mqtt/commit/697917c866098943a39fc8696fc6601909c76a7b))
+* **deps:** update rust crate serde to 1.0.171 ([0a1bec1](https://github.com/FruitieX/twinkly-mqtt/commit/0a1bec1eca0f3dc85ef6ee6698f37515a925a577))
+* **deps:** update rust crate serde to 1.0.173 ([578d1ce](https://github.com/FruitieX/twinkly-mqtt/commit/578d1ce6aca19d8e2b8558679fb01676ce89c1cf))
+* **deps:** update rust crate serde to 1.0.174 ([e98bf0a](https://github.com/FruitieX/twinkly-mqtt/commit/e98bf0aaba847eb3918dc81c9fb019b091e9aec4))
+* **deps:** update rust crate serde to 1.0.175 ([551218b](https://github.com/FruitieX/twinkly-mqtt/commit/551218b7d494f5b49ea0c6d6d46f9590a5958325))
+* **deps:** update rust crate serde to 1.0.176 ([45f5d4a](https://github.com/FruitieX/twinkly-mqtt/commit/45f5d4adf8bfcc956f0cb197082733c66b759349))
+* **deps:** update rust crate serde to 1.0.177 ([56ea10a](https://github.com/FruitieX/twinkly-mqtt/commit/56ea10ac046251acbf92102afaf5593c12195c12))
+* **deps:** update rust crate serde to 1.0.178 ([c7de80f](https://github.com/FruitieX/twinkly-mqtt/commit/c7de80f7c770433bc83402d47f6efbe3ad6b46f0))
+* **deps:** update rust crate serde to 1.0.179 ([029e525](https://github.com/FruitieX/twinkly-mqtt/commit/029e525449c2faa1feef958a41057af07e971cfd))
+* **deps:** update rust crate serde to 1.0.180 ([d68a940](https://github.com/FruitieX/twinkly-mqtt/commit/d68a940580ef30dc55401710f5bc9f01117a8e7f))
+* **deps:** update rust crate serde to 1.0.181 ([93e4297](https://github.com/FruitieX/twinkly-mqtt/commit/93e4297537ec8d92283763c4746e4dc60d1066df))
+* **deps:** update rust crate serde to 1.0.182 ([ec94e0a](https://github.com/FruitieX/twinkly-mqtt/commit/ec94e0a36ecd6504202808bad006f4e2af1a646f))
+* **deps:** update rust crate serde to 1.0.183 ([79e2afc](https://github.com/FruitieX/twinkly-mqtt/commit/79e2afc7157f4829864557b5ed88b6ff296496d8))
+* **deps:** update rust crate serde to 1.0.185 ([5db516e](https://github.com/FruitieX/twinkly-mqtt/commit/5db516e113efffa6b3bc2d7b04ba87e7bbd9c67d))
+* **deps:** update rust crate serde to 1.0.186 ([347b696](https://github.com/FruitieX/twinkly-mqtt/commit/347b696a68e1b3b070aa8584ebf988330a0d3595))
+
 ## [0.4.1](https://github.com/FruitieX/twinkly-mqtt/compare/v0.4.0...v0.4.1) (2023-06-26)
 
 
