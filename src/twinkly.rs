@@ -63,7 +63,12 @@ pub async fn init_twinkly(
                             .publish(topic, QoS::AtLeastOnce, true, json)
                             .await?;
 
-                        tokio::time::sleep(Duration::from_millis(3000)).await;
+                        // restrict polling rate if phone app is being used
+                        if mode == "rt" {
+                            tokio::time::sleep(Duration::from_millis(60000)).await;
+                        } else {
+                            tokio::time::sleep(Duration::from_millis(3000)).await;
+                        }
                     }
 
                     #[allow(unreachable_code)]
