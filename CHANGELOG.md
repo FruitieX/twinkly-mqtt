@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/FruitieX/twinkly-mqtt/compare/v0.5.0...v0.5.1) (2023-10-20)
+
+
+### Bug Fixes
+
+* MQTT client re-subscribes on reconnect ([8299e43](https://github.com/FruitieX/twinkly-mqtt/commit/8299e43b5e5b613f14080a56be8306ef545de2d2))
+
 ## [0.5.0](https://github.com/FruitieX/twinkly-mqtt/compare/v0.4.1...v0.5.0) (2023-10-20)
 
 
