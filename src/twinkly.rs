@@ -1,3 +1,5 @@
+#![allow(clippy::redundant_closure_call)]
+
 use anyhow::{Context, Result};
 use futures::{future::select_all, FutureExt};
 use log::warn;
