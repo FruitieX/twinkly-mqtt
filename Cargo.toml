@@ -23,7 +23,7 @@ anyhow = "=1.0.75"
 palette = { version = "=0.7.3", features = ["serializing"] }
 log = "=0.4.20"
 futures = "=0.3.29"
-config = "=0.13.3"
+config = "=0.13.4"
 byteorder = "=1.5.0"
 reqwest = { version = "=0.11.22", default-features = false, features = [
 	"json",
