@@ -1627,7 +1627,7 @@ name = "twinkly-mqtt"
 version = "0.5.1"
 dependencies = [
  "anyhow",
- "base64 0.21.7",
+ "base64 0.22.1",
  "byteorder",
  "config",
  "env_logger",
