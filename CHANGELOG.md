@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.5.2](https://github.com/FruitieX/twinkly-mqtt/compare/v0.5.1...v0.5.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate base64 to 0.21.5 ([75398f0](https://github.com/FruitieX/twinkly-mqtt/commit/75398f0fa6f2483132de785b45c9d897f926ee11))
+* **deps:** update rust crate config to v0.13.4 ([a9a8e5c](https://github.com/FruitieX/twinkly-mqtt/commit/a9a8e5c07defb1f6d775865d0350d21bedb4351f))
+* **deps:** update rust crate env_logger to v0.10.1 ([43cfe48](https://github.com/FruitieX/twinkly-mqtt/commit/43cfe489a6e9d1ee15bb5a2e6489130df17d57ad))
+* **deps:** update rust crate futures to v0.3.29 ([c0a02b8](https://github.com/FruitieX/twinkly-mqtt/commit/c0a02b8fb08a524b6a06929e5fc37519a8d781d7))
+* **deps:** update rust crate serde to 1.0.190 ([b7ad1ad](https://github.com/FruitieX/twinkly-mqtt/commit/b7ad1ad0b7a05415513aca35b8d0aa48156ac622))
+* **deps:** update rust crate serde to v1.0.191 ([f6f28fb](https://github.com/FruitieX/twinkly-mqtt/commit/f6f28fb28a530c5439cbb4c8ac5a393ef1fc20b0))
+* **deps:** update rust crate serde to v1.0.192 ([4eef35a](https://github.com/FruitieX/twinkly-mqtt/commit/4eef35aba4af3140c4c647bcca462eb7e0d8fdcc))
+* **deps:** update rust crate serde to v1.0.193 ([df6e6b0](https://github.com/FruitieX/twinkly-mqtt/commit/df6e6b031874e0081f7a6cdc969d92490bf3a48f))
+* **deps:** update rust crate serde_json to v1.0.108 ([c90d886](https://github.com/FruitieX/twinkly-mqtt/commit/c90d886a9e20507fc7c7afa5ce77107105baa873))
+* **deps:** update rust crate tokio to v1.34.0 ([753e53d](https://github.com/FruitieX/twinkly-mqtt/commit/753e53da8e715ab18f510360ed824a644667e508))
+
 ## [0.5.1](https://github.com/FruitieX/twinkly-mqtt/compare/v0.5.0...v0.5.1) (2023-10-20)
 
 
