@@ -21,7 +21,7 @@ serde_json = { version = "=1.0.150", features = ["preserve_order"] }
 rumqttc = "=0.25.1"
 anyhow = "=1.0.102"
 palette = { version = "=0.7.6", features = ["serializing"] }
-log = "=0.4.30"
+log = "=0.4.31"
 futures = "=0.3.32"
 config = "=0.15.19"
 byteorder = "=1.5.0"
