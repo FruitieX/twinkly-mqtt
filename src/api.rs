@@ -21,17 +21,15 @@ pub struct VerifyResponse {
 #[derive(Clone, Debug)]
 pub struct Token {
     pub string: String,
-    pub binary: Vec<u8>,
     pub last_verified: Option<Instant>,
 }
 
 impl Token {
     pub fn new(token: String) -> Result<Token> {
-        let binary = base64::engine::general_purpose::STANDARD.decode(token.clone())?;
+        base64::engine::general_purpose::STANDARD.decode(&token)?;
 
         let token = Token {
             string: token,
-            binary,
             last_verified: None,
         };
 
