@@ -1,7 +1,7 @@
 #![allow(clippy::redundant_closure_call)]
 
 use anyhow::{Context, Result};
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, RngExt};
 use rumqttc::{AsyncClient, MqttOptions, QoS};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, sync::Arc, time::Duration};
@@ -29,18 +29,23 @@ pub struct MqttClient {
     pub rx_map: HashMap<String, Arc<RwLock<Receiver<Option<MqttDevice>>>>>,
 }
 
-pub async fn init_mqtt(
-    mqtt_config: &MqttConfig,
-    twinkly_config: &TwinklyConfig,
-) -> Result<MqttClient> {
-    let random_string: String = rand::thread_rng()
-        .sample_iter(&Alphanumeric)
+/// Builds a unique MQTT client id by appending a random suffix to `id`.
+fn client_id(id: &str) -> String {
+    let random_string: String = rand::rng()
+        .sample_iter(Alphanumeric)
         .take(8)
         .map(char::from)
         .collect();
 
+    format!("{id}-{random_string}")
+}
+
+pub async fn init_mqtt(
+    mqtt_config: &MqttConfig,
+    twinkly_config: &TwinklyConfig,
+) -> Result<MqttClient> {
     let mut options = MqttOptions::new(
-        format!("{}-{}", mqtt_config.id.clone(), random_string),
+        client_id(&mqtt_config.id),
         mqtt_config.host.clone(),
         mqtt_config.port,
     );
