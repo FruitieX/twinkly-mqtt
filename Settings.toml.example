@@ -3,5 +3,9 @@ id = "twinkly-mqtt"
 host = "test.mosquitto.org"
 port = 1883
 
+# Optional broker credentials; leave out to connect anonymously
+# username = "example"
+# password = "secret"
+
 [devices]
 Staircase = { ip = "192.168.1.20" }
