@@ -171,3 +171,107 @@ impl TwinklyApi {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::Mutex;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+    use tokio::net::TcpListener;
+
+    /// Minimal fake of the Twinkly local HTTP API. Records the requests it
+    /// receives as "METHOD /path body".
+    async fn fake_twinkly() -> (String, Arc<Mutex<Vec<String>>>) {
+        let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap().to_string();
+        let requests = Arc::new(Mutex::new(vec![]));
+
+        let log = requests.clone();
+        tokio::spawn(async move {
+            loop {
+                let (mut socket, _) = listener.accept().await.unwrap();
+                let log = log.clone();
+
+                tokio::spawn(async move {
+                    let mut buf = Vec::new();
+                    let mut chunk = [0; 1024];
+                    let (head, body) = loop {
+                        let n = socket.read(&mut chunk).await.unwrap();
+                        buf.extend_from_slice(&chunk[..n]);
+                        let text = String::from_utf8_lossy(&buf).to_string();
+                        if let Some((head, body)) = text.split_once("\r\n\r\n") {
+                            let len = head
+                                .lines()
+                                .find_map(|l| {
+                                    l.to_ascii_lowercase()
+                                        .strip_prefix("content-length: ")
+                                        .map(|v| v.trim().parse::<usize>().unwrap())
+                                })
+                                .unwrap_or(0);
+                            if body.len() >= len {
+                                break (head.to_string(), body.to_string());
+                            }
+                        }
+                    };
+
+                    let request_line = head.lines().next().unwrap();
+                    let mut parts = request_line.split(' ');
+                    let (method, path) = (parts.next().unwrap(), parts.next().unwrap());
+                    log.lock()
+                        .unwrap()
+                        .push(format!("{method} {path} {body}").trim().to_string());
+
+                    let response = match (method, path) {
+                        ("POST", "/xled/v1/login") => {
+                            r#"{"authentication_token":"dG9rZW4=","challenge-response":"x","code":1000}"#
+                        }
+                        ("GET", "/xled/v1/led/mode") => r#"{"mode":"movie","code":1000}"#,
+                        _ => r#"{"code":1000}"#,
+                    };
+
+                    let reply = format!(
+                        "HTTP/1.1 200 OK\r\ncontent-type: application/json\r\ncontent-length: {}\r\nconnection: close\r\n\r\n{}",
+                        response.len(),
+                        response
+                    );
+                    socket.write_all(reply.as_bytes()).await.unwrap();
+                });
+            }
+        });
+
+        (addr, requests)
+    }
+
+    #[test]
+    fn token_must_be_base64() {
+        assert!(Token::new("dG9rZW4=".to_string()).is_ok());
+        assert!(Token::new("not base64!".to_string()).is_err());
+    }
+
+    #[tokio::test]
+    async fn logs_in_and_reads_mode() {
+        let (addr, requests) = fake_twinkly().await;
+        let api = TwinklyApi::new(addr);
+
+        assert_eq!(api.get_mode().await.unwrap(), "movie");
+
+        let requests = requests.lock().unwrap().clone();
+        assert!(requests[0].starts_with("POST /xled/v1/login {\"challenge\":"));
+        assert_eq!(requests[1], "GET /xled/v1/verify");
+        assert_eq!(requests[2], "GET /xled/v1/led/mode");
+    }
+
+    #[tokio::test]
+    async fn sets_mode() {
+        let (addr, requests) = fake_twinkly().await;
+        let api = TwinklyApi::new(addr);
+
+        api.set_mode("off".to_string()).await.unwrap();
+
+        let requests = requests.lock().unwrap().clone();
+        assert_eq!(
+            requests.last().unwrap(),
+            r#"POST /xled/v1/led/mode {"mode":"off"}"#
+        );
+    }
+}

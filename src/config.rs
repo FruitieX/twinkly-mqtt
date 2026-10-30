@@ -38,7 +38,12 @@ pub fn read_config_devices() -> Result<(MqttConfig, TwinklyConfig)> {
         std::fs::copy(sample_path, path).unwrap();
     }
 
-    let builder = builder.add_source(config::File::with_name("Settings"));
+    parse_config(builder.add_source(config::File::with_name("Settings")))
+}
+
+fn parse_config(
+    builder: config::ConfigBuilder<config::builder::DefaultState>,
+) -> Result<(MqttConfig, TwinklyConfig)> {
     let settings = builder.build()?;
 
     let config: Config = settings.try_deserialize().context(
@@ -64,4 +69,25 @@ pub fn read_config_devices() -> Result<(MqttConfig, TwinklyConfig)> {
     let twinkly_config = TwinklyConfig { devices };
 
     Ok((mqtt_config, twinkly_config))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_example_config() {
+        let (mqtt, twinkly) =
+            parse_config(config::Config::builder().add_source(config::File::from_str(
+                include_str!("../Settings.toml.example"),
+                config::FileFormat::Toml,
+            )))
+            .unwrap();
+
+        assert_eq!(mqtt.id, "twinkly-mqtt");
+        assert_eq!(mqtt.port, 1883);
+        assert_eq!(twinkly.devices.len(), 1);
+        assert_eq!(twinkly.devices["Staircase"].ip, "192.168.1.20");
+        assert_eq!(twinkly.devices["Staircase"].id, "Staircase");
+    }
 }
